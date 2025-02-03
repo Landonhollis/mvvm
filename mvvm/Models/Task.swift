@@ -4,6 +4,7 @@ enum ReminderUrgency: Int, CaseIterable {
     case low = 1
     case medium = 2
     case high = 3
+    case critical = 4
 }
 
 enum ReminderMonth: String, CaseIterable {
