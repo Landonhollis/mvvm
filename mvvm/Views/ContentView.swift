@@ -5,6 +5,7 @@ struct ContentView: View {
     @AppStorage("isDarkMode") private var isDarkMode = true
     @State private var showingAddMenu = false
     @State private var showingNoteView = false
+    @State private var showingReminderView = false
     
     var body: some View {
         NavigationView {
@@ -98,7 +99,7 @@ struct ContentView: View {
                     
                     VStack(spacing: 0) {
                         Button(action: {
-                            // TODO: Show Reminder creation view
+                            showingReminderView = true
                             showingAddMenu = false
                         }) {
                             Text("Reminder")
@@ -148,6 +149,9 @@ struct ContentView: View {
         .animation(.easeInOut, value: showingAddMenu)
         .sheet(isPresented: $showingNoteView) {
             NoteView()
+        }
+        .sheet(isPresented: $showingReminderView) {
+            AddReminderView()
         }
     }
 }
