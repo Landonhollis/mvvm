@@ -9,9 +9,14 @@ class TaskViewModel: ObservableObject {
         reminderTasks.append(task)
         sortRemindersByDate()
         saveReminderTasks()
+        NotificationsManager.shared.scheduleNotification(for: task)
     }
     
     func deleteReminderTask(at indexSet: IndexSet) {
+        for index in indexSet {
+            let reminder = reminderTasks[index]
+            NotificationsManager.shared.removeScheduledNotification(for: reminder)
+        }
         reminderTasks.remove(atOffsets: indexSet)
         saveReminderTasks()
     }
@@ -21,6 +26,7 @@ class TaskViewModel: ObservableObject {
             reminderTasks[index] = task
             sortRemindersByDate()
             saveReminderTasks()
+            NotificationsManager.shared.updateNotification(for: task)
         }
     }
     
