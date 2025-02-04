@@ -63,7 +63,7 @@ struct EditReminderView: View {
                     .foregroundColor(Color("LinesAndTextColor"))
                     .padding(.horizontal, 20)
                     .padding(.vertical, 10)
-                    .background(Color("SecondaryColor"))
+                    .background(Color("AppSecondaryColor"))
                     .cornerRadius(20)
                     
                     Spacer()
@@ -74,7 +74,7 @@ struct EditReminderView: View {
                     .foregroundColor(Color("LinesAndTextColor"))
                     .padding(.horizontal, 20)
                     .padding(.vertical, 10)
-                    .background(Color("SecondaryColor"))
+                    .background(Color("AppSecondaryColor"))
                     .cornerRadius(20)
                 }
                 .padding()
@@ -84,7 +84,7 @@ struct EditReminderView: View {
                     .font(.title)
                     .foregroundColor(Color("LinesAndTextColor"))
                     .padding()
-                    .background(Color("SecondaryColor"))
+                    .background(Color("AppSecondaryColor"))
                     .cornerRadius(20)
                     .padding(.horizontal)
                 
@@ -189,7 +189,7 @@ struct EditReminderView: View {
     // Reuse helper functions from AddReminderView
     private func monthName(_ month: Int) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.monthSymbols[month - 1]
+        return dateFormatter.monthSymbols[month - 1]
     }
     
     private func urgencyText(_ urgency: ReminderUrgency) -> String {

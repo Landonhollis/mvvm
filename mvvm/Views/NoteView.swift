@@ -40,7 +40,7 @@ struct NoteView: View {
                             .foregroundColor(Color("LinesAndTextColor"))
                             .padding(.horizontal, 20)
                             .padding(.vertical, 10)
-                            .background(Color("SecondaryColor"))
+                            .background(Color("AppSecondaryColor"))
                             .cornerRadius(20)
                     }
                     

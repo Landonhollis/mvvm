@@ -27,7 +27,7 @@ struct ContentView: View {
                                 .foregroundColor(Color("LinesAndTextColor"))
                                 .padding(.horizontal, 20)
                                 .padding(.vertical, 10)
-                                .background(Color("SecondaryColor"))
+                                .background(Color("AppSecondaryColor"))
                                 .cornerRadius(20)
                         }
                     }
@@ -159,6 +159,7 @@ struct ContentView: View {
 struct ReminderRow: View {
     let reminder: ReminderTask
     @EnvironmentObject private var viewModel: TaskViewModel
+    @State private var showingEditSheet = false
     
     var urgencyColor: Color {
         switch reminder.reminderUrgency {
@@ -188,8 +189,27 @@ struct ReminderRow: View {
                 .cornerRadius(15)
         }
         .padding()
-        .background(Color("SecondaryColor"))
+        .background(Color("AppSecondaryColor"))
         .cornerRadius(10)
+        .swipeActions(edge: .trailing) {
+            Button(role: .destructive) {
+                if let index = viewModel.reminderTasks.firstIndex(where: { $0.id == reminder.id }) {
+                    viewModel.deleteReminderTask(at: IndexSet(integer: index))
+                }
+            } label: {
+                Label("Delete", systemImage: "trash")
+            }
+            
+            Button {
+                showingEditSheet = true
+            } label: {
+                Label("Edit", systemImage: "pencil")
+            }
+            .tint(Color("AddButtonColor"))
+        }
+        .sheet(isPresented: $showingEditSheet) {
+            EditReminderView(reminder: reminder)
+        }
     }
 }
 
@@ -202,7 +222,7 @@ struct NoteCard: View {
             .multilineTextAlignment(.center)
             .frame(height: 100)
             .frame(maxWidth: .infinity)
-            .background(Color("SecondaryColor"))
+            .background(Color("AppSecondaryColor"))
             .cornerRadius(15)
     }
 }

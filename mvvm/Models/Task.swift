@@ -1,6 +1,6 @@
 import Foundation
 
-enum ReminderUrgency: Int, CaseIterable {
+enum ReminderUrgency: Int, Codable, CaseIterable {
     case low = 1
     case medium = 2
     case high = 3
@@ -12,6 +12,14 @@ struct ReminderTask: Identifiable, Codable {
     var priorityName: String
     var reminderDate: Date
     var reminderUrgency: ReminderUrgency
+    
+    // Add coding keys to ensure proper encoding/decoding
+    enum CodingKeys: String, CodingKey {
+        case id
+        case priorityName
+        case reminderDate
+        case reminderUrgency
+    }
 }
 
 struct NoteTask: Identifiable, Codable {
@@ -54,7 +62,7 @@ struct NoteTask: Identifiable, Codable {
         noteName = try container.decode(String.self, forKey: .noteName)
         noteText = try container.decode(String.self, forKey: .noteText)
         if let data = try? container.decode(Data.self, forKey: .attributedText),
-           let attributed = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? NSAttributedString {
+           let attributed = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSAttributedString.self, from: data) {
             attributedText = attributed
         }
         drawingData = try? container.decode(Data.self, forKey: .drawingData)
